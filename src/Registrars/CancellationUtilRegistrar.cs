@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Soenneker.Utils.Cancellation.Abstract;
 
-namespace Soenneker.Utils.Cancellation.Extensions;
+namespace Soenneker.Utils.Cancellation.Registrars;
 
 public static class CancellationUtilRegistrar
 {
