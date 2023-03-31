@@ -4,11 +4,14 @@ using Soenneker.Utils.Cancellation.Abstract;
 
 namespace Soenneker.Utils.Cancellation.Registrars;
 
+/// <summary>
+/// A utility library allowing for easy CancellationToken usage
+/// </summary>
 public static class CancellationUtilRegistrar
 {
     /// <summary>
     /// Adds ICancellationUtil as a scoped service. <para/>
-    /// Shorthand for <code>services.AddScoped</code> <para/>
+    /// Shorthand for <code>services.TryAddScoped</code> <para/>
     /// </summary>
     public static void AddCancellationUtil(this IServiceCollection services)
     {
