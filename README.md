@@ -8,7 +8,7 @@
 ## Installation
 
 ```
-Install-Package Soenneker.Utils.Cancellation
+dotnet add package Soenneker.Utils.Cancellation
 ```
 
 ## Usage
