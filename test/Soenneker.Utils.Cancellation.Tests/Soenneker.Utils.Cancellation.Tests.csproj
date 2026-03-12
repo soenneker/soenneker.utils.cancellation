@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Soenneker.Utils.Cancellation.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.Utils.Cancellation\Soenneker.Utils.Cancellation.csproj" />
     </ItemGroup>
 
     <ItemGroup>
