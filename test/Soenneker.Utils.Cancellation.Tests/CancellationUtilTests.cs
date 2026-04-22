@@ -1,23 +1,22 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Soenneker.Utils.Cancellation.Abstract;
-using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Tests.HostedUnit;
 
 
 namespace Soenneker.Utils.Cancellation.Tests;
 
-[Collection("Collection")]
-public class CancellationUtilTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public class CancellationUtilTests : HostedUnitTest
 {
     private readonly ICancellationUtil _util;
 
-    public CancellationUtilTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public CancellationUtilTests(Host host) : base(host)
     {
         _util = Resolve<ICancellationUtil>(true);
     }
 
-    [Fact]
+    [Test]
     public void Default()
     {
 
