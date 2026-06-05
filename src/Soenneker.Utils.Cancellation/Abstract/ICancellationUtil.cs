@@ -9,6 +9,10 @@ namespace Soenneker.Utils.Cancellation.Abstract;
 /// </summary>
 public interface ICancellationUtil
 {
+    /// <summary>
+    /// Sets the value.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token.</param>
     void Set(CancellationToken cancellationToken);
 
     /// <summary>
