@@ -13,6 +13,7 @@ public static class CancellationUtilRegistrar
     /// Adds ICancellationUtil as a scoped service. <para/>
     /// Shorthand for <code>services.TryAddScoped</code> <para/>
     /// </summary>
+    /// <returns>Adds ICancellationUtil as a scoped service. <para/> Shorthand for <code>services.TryAddScoped</code> <para/>.</returns>
     public static IServiceCollection AddCancellationUtil(this IServiceCollection services)
     {
         services.TryAddScoped<ICancellationUtil, CancellationUtil>();
