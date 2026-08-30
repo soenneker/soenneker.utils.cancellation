@@ -3,36 +3,47 @@
 [![](https://img.shields.io/nuget/dt/Soenneker.Utils.Cancellation.svg?style=for-the-badge)](https://www.nuget.org/packages/Soenneker.Utils.Cancellation/)
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.utils.cancellation/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.utils.cancellation/actions/workflows/codeql.yml)
 
-# ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Utils.Cancellation
-### A utility library allowing for easy CancellationToken usage
+# Soenneker.Utils.Cancellation
+
+A small scoped holder for passing one `CancellationToken` between services resolved from the same dependency-injection scope.
 
 ## Installation
 
-```
+```bash
 dotnet add package Soenneker.Utils.Cancellation
 ```
 
-## Usage
-
-1. Register the interop within DI (`Program.cs`).
+## Registration
 
 ```csharp
-public static async Task Main(string[] args)
+builder.Services.AddCancellationUtil();
+```
+
+`ICancellationUtil` is registered as scoped. Do not inject it into a singleton.
+
+## Usage
+
+Set the request or operation token near the scope boundary:
+
+```csharp
+public async Task<IResult> Import(
+    ICancellationUtil cancellation,
+    IImporter importer,
+    CancellationToken cancellationToken)
 {
-    ...
-    builder.Services.AddCancellationUtil();
+    cancellation.Set(cancellationToken);
+    await importer.Run();
+    return Results.Ok();
 }
 ```
 
-2. Inject `ICancellationUtil` where you wish to set the `CancellationToken` (typically from an API Controller)
+Another service in that same scope can retrieve it:
 
 ```csharp
-_cancellationUtil.Set(cancellationToken);
+CancellationToken cancellationToken = cancellation.Get();
+await client.SendAsync(request, cancellationToken);
 ```
 
-3. Inject `ICancellationUtil` where you wish to retrieve the `CancellationToken` (typically when accessing another API, or database etc):
+`Get()` returns `CancellationToken.None` when no value has been set. Calling `Set()` again replaces the stored token.
 
-```csharp
-// is not guaranteed to be non-null (if it never was set within scope), but is specified thus for ease of use
-var cancellationUtil = _cancellationUtil.Get(); 
-```
+This type is a mutable scoped value, not an `AsyncLocal` context. Do not use one scope for concurrent operations that need different tokens; pass tokens explicitly in that situation.
