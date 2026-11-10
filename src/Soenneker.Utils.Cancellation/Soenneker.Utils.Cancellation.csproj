@@ -41,6 +41,6 @@
         <None Include="..\..\README.md" Pack="true" PackagePath="\" />
         <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
         <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0-rc.3.26522.148" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0" />
     </ItemGroup>
 </Project>
